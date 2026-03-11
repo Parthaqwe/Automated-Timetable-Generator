@@ -1,4 +1,5 @@
 Automated Timetable Generator
+
 📌 Overview
 
 The Automated Timetable Generator is a software application designed to automatically generate academic timetables for educational institutions such as colleges or schools. The system eliminates the complexity and inefficiencies associated with manual timetable preparation by automatically scheduling subjects, teachers, and classrooms while avoiding scheduling conflicts.
