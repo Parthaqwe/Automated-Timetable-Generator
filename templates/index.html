@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row align-items-center mt-5">
+    <div class="col-md-7">
+        <h1 class="display-4 fw-bold mb-3 text-gradient">Automated Timetable <br> Generator</h1>
+        <p class="lead text-muted mb-4">
+            A smart, conflict-free scheduling solution designed for college administration. Easily manage your teachers, subjects, and branches, and automatically generate optimal timetables with fair workload distribution.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg px-4 me-md-2 shadow-sm rounded-pill">Get Started</a>
+            <a href="{{ url_for('timetable') }}" class="btn btn-outline-secondary btn-lg px-4 shadow-sm rounded-pill">View Timetables</a>
+        </div>
+    </div>
+    <div class="col-md-5 d-none d-md-block px-5">
+        <div class="p-5 bg-light rounded-circle shadow hero-circle d-flex align-items-center justify-content-center" style="height: 350px; width: 350px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-calendar-event text-primary" viewBox="0 0 16 16">
+              <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+            </svg>
+        </div>
+    </div>
+</div>
+{% endblock %}

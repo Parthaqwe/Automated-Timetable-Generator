@@ -1,0 +1,90 @@
+/* Custom CSS for Automated Timetable Generator */
+
+/* Typography & Base */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fc;
+    color: #333;
+}
+
+/* Navbar */
+.custom-nav {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+/* Gradients for text and backgrounds */
+.text-gradient {
+    background: -webkit-linear-gradient(45deg, #4e73df, #1cc88a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-card-1 {
+    background: linear-gradient(135deg, #4e73df 0%, #2e59d9 100%);
+}
+
+.gradient-card-2 {
+    background: linear-gradient(135deg, #1cc88a 0%, #13855f 100%);
+}
+
+.gradient-card-3 {
+    background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+}
+
+/* Cards & Components */
+.card {
+    border-radius: 15px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+a.card:hover, .hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: 1px solid #e3e6f0;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+    border-color: #bac8f3;
+}
+
+.btn {
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+/* Hero Circle Decoration */
+.hero-circle {
+    background: linear-gradient(135deg, rgba(78, 115, 223, 0.1) 0%, rgba(28, 200, 138, 0.1) 100%) !important;
+    border: 1px solid rgba(78, 115, 223, 0.2);
+}
+
+/* Timetable Grid Customisation */
+.timetable-grid th {
+    font-weight: 600;
+}
+
+.timetable-cell {
+    min-width: 140px;
+    height: 80px;
+    vertical-align: middle;
+}

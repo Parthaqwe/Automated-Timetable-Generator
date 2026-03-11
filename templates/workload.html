@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">Teacher Workload Summary</h2>
+    <span class="badge bg-primary rounded-pill p-2 px-3 shadow-sm">Max 5 hours/day</span>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover text-center align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-start ps-4">Teacher Name</th>
+                        {% for day in days %}
+                            <th>{{ day }}</th>
+                        {% endfor %}
+                        <th class="bg-light fw-bold">Total Weekly Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher, stats in workload.items() %}
+                    <tr>
+                        <td class="text-start ps-4 fw-semibold">{{ teacher }}</td>
+                        {% for day in days %}
+                            {% set hrs = stats[day] %}
+                            <td>
+                                {% if hrs > 0 %}
+                                    <span class="badge {% if hrs >= 5 %}bg-danger{% elif hrs >= 4 %}bg-warning text-dark{% else %}bg-success{% endif %} rounded-circle p-2" style="min-width: 30px;">
+                                        {{ hrs }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td class="bg-light fw-bold text-primary">{{ stats['Total'] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-5">No workload data available. Generate a timetable first.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

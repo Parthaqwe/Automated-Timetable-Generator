@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">View Timetables</h2>
+    
+    {% if branches %}
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('export_pdf', branch=selected_branch) }}" class="btn btn-outline-danger shadow-sm rounded-pill px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf me-1" viewBox="0 0 16 16">
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+              <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .023-.012c.152-.086.305-.23.446-.383.204-.22.393-.45.578-.692a22.333 22.333 0 0 1 .073-.103zm-.81-1.42dfn"/>
+            </svg>
+            Export PDF
+        </a>
+        <a href="{{ url_for('export_excel') }}" class="btn btn-outline-success shadow-sm rounded-pill px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel me-1" viewBox="0 0 16 16">
+              <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+            </svg>
+            Export Full Excel
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+{% if branches %}
+<div class="card shadow border-0 overflow-hidden mb-5">
+    <div class="card-header bg-light border-0 py-3 d-flex justify-content-between align-items-center">
+        <form method="GET" class="d-flex align-items-center m-0">
+            <label for="branchSelect" class="me-3 fw-bold text-nowrap">Select Branch:</label>
+            <select class="form-select shadow-sm" id="branchSelect" name="branch" onchange="this.form.submit()" style="max-width: 300px;">
+                {% for b in branches %}
+                    <option value="{{ b.name }}" {% if selected_branch == b.name %}selected{% endif %}>{{ b.name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center align-middle mb-0 timetable-grid">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="py-3" style="width: 12%;">Day / Time</th>
+                        {% for slot in slots %}
+                            <th class="py-3">{{ slot }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for day in days %}
+                    <tr>
+                        <th class="bg-light text-primary py-4">{{ day }}</th>
+                        {% for slot in slots %}
+                            {% set cell = grid[day][slot] %}
+                            <td class="timetable-cell p-3 {% if not cell or cell.subject == 'Free' %}bg-light text-muted{% endif %}">
+                                {% if cell and cell.subject != 'Free' %}
+                                    <div class="fw-bold text-dark mb-1">{{ cell.subject }}</div>
+                                    <span class="badge bg-secondary rounded-pill fw-normal">{{ cell.teacher }}</span>
+                                {% else %}
+                                    <span class="text-secondary small fst-italic">- Free -</span>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info shadow-sm border-0 mt-4 rounded-3 p-4 text-center">
+    <h4 class="alert-heading fw-bold">No branches available!</h4>
+    <p>You need to create branches, subjects, and teachers first, then generate the timetable.</p>
+    <hr>
+    <a href="{{ url_for('branches') }}" class="btn btn-primary rounded-pill mt-2">Add Branches</a>
+</div>
+{% endif %}
+{% endblock %}

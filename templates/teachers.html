@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white border-0 py-3">
+                <h5 class="mb-0 fw-bold">Add Teacher</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Teacher Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder="e.g. Dr. Smith">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Assigned Subject</label>
+                        <input type="text" class="form-control" id="subject" name="subject" required placeholder="e.g. Mathematics">
+                        <div class="form-text">Specify the primary subject. Adding multiple entries allows the teacher to teach multiple subjects.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill shadow-sm">Add Teacher</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white border-0 py-3">
+                <h5 class="mb-0 fw-bold">Teacher List</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Assigned Subject</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for t in teachers %}
+                            <tr>
+                                <td>{{ t.id }}</td>
+                                <td class="fw-semibold">{{ t.name }}</td>
+                                <td><span class="badge bg-secondary rounded-pill fw-normal">{{ t.subject }}</span></td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-4">No teachers added yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
